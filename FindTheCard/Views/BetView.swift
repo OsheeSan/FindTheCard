@@ -59,7 +59,6 @@ class BetView: UIView, UITextFieldDelegate {
 
 
     private func setupUI() {
-        // Add imageView
         addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -68,7 +67,6 @@ class BetView: UIView, UITextFieldDelegate {
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
         ])
 
-        // Add number text field
         addSubview(numberTextField)
         NSLayoutConstraint.activate([
             numberTextField.trailingAnchor.constraint(equalTo: trailingAnchor),

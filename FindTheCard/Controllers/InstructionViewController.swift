@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InstructionViewController: UIViewController {
+class InstructionViewController: UIViewController, UITextViewDelegate {
     
     var textView: UITextView!
     
@@ -17,7 +17,6 @@ class InstructionViewController: UIViewController {
         setupTextView()
         view.backgroundColor = .clear
     }
-    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -29,14 +28,28 @@ class InstructionViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
+        let hookView = UIView()
+        hookView.backgroundColor = .label
+        hookView.translatesAutoresizingMaskIntoConstraints = false
+        hookView.clipsToBounds = true
+        hookView.layer.cornerRadius = 3
+        view.addSubview(hookView)
+        NSLayoutConstraint.activate([
+            hookView.topAnchor.constraint(equalTo: view.topAnchor, constant: 7),
+            hookView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
+            hookView.heightAnchor.constraint(equalToConstant: 6),
+            hookView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     func setupTextView(){
         textView = UITextView()
-        textView.font = UIFont(name: "AvenirNext-Regular", size: 10)
+        textView.font = UIFont(name: "AvenirNext-Regular", size: 15)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.clipsToBounds = true
         textView.layer.cornerRadius = 10
+        textView.isEditable = false
+        textView.isSelectable = false
         textView.backgroundColor = .clear
         view.addSubview(textView)
         NSLayoutConstraint.activate([
