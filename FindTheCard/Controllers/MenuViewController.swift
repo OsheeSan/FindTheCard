@@ -20,6 +20,10 @@ class MenuViewController: UIViewController {
         setupButtons()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     func setupButtons(){
         game1Button = UIButton(type: .custom)
         game1Button.translatesAutoresizingMaskIntoConstraints = false
@@ -61,11 +65,13 @@ class MenuViewController: UIViewController {
     
     @objc func game1() {
         Vibration.light.vibrate()
+        GameManager.shared.gameType  = .oneCard
         self.performSegue(withIdentifier: "game1", sender: game1Button)
     }
     
     @objc func game3() {
         Vibration.light.vibrate()
+        GameManager.shared.gameType  = .threeCards
         self.performSegue(withIdentifier: "game3", sender: game3Button)
     }
     
@@ -73,17 +79,6 @@ class MenuViewController: UIViewController {
         Vibration.light.vibrate()
         let vc = InstructionViewController()
         self.present(vc, animated: true)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "game1":
-            GameManager.shared.cardsToOpen = 1
-        case "game3":
-            GameManager.shared.cardsToOpen = 3
-        default:
-            break
-        }
     }
     
 }

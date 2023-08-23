@@ -15,6 +15,8 @@ class GameManager {
     
     var cardsToOpen = 3
     
+    var gameType: gameType!
+    
     var cards: [Card] = []
     
     var currentBet: Bet!
@@ -45,4 +47,10 @@ class GameManager {
         cards = []
         createCards()
     }
+}
+
+
+enum gameType{
+    case oneCard
+    case threeCards
 }

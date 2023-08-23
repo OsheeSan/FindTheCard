@@ -13,8 +13,22 @@ class InstructionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setBackground()
         setupTextView()
         view.backgroundColor = .clear
+    }
+    
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    private func setBackground(){
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemChromeMaterial)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
     }
     
     func setupTextView(){
@@ -23,6 +37,7 @@ class InstructionViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.clipsToBounds = true
         textView.layer.cornerRadius = 10
+        textView.backgroundColor = .clear
         view.addSubview(textView)
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

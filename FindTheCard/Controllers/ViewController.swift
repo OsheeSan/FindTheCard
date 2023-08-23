@@ -52,6 +52,8 @@ class ViewController: UIViewController {
     var pinkIV: UIImageView!
     var yellowIV: UIImageView!
     
+    //MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load")
@@ -64,6 +66,13 @@ class ViewController: UIViewController {
         setupHomeButton()
     }
     
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    
+    //MARK: - setupBackground
     func setupBackground(){
         backgroundView = UIImageView(frame: view.frame)
         backgroundView.contentMode = .scaleAspectFill
@@ -71,6 +80,7 @@ class ViewController: UIViewController {
         view.addSubview(backgroundView)
     }
     
+    //MARK: - objc showBetMenu
     @objc func showBetMenu() {
         if logo == nil && number == nil && color == nil {
             let alertController = UIAlertController(title: "Hey!", message: "Choose at least one sign.", preferredStyle: .alert)
@@ -84,6 +94,8 @@ class ViewController: UIViewController {
             self.present(floatingMenuVC, animated: true)
         }
     }
+    
+    //MARK: - setupHomeButton
     func setupHomeButton() {
         homeButton = UIButton(type: .custom)
         homeButton.imageView?.contentMode = .scaleAspectFit
@@ -99,11 +111,23 @@ class ViewController: UIViewController {
         homeButton.addTarget(self, action: #selector(mainMenu), for: .touchUpInside)
     }
     
+    //MARK: - objc mainMenu
     @objc func mainMenu(){
         Vibration.light.vibrate()
-        self.dismiss(animated: true)
+        let alertController = UIAlertController(title: "You sure?", message: "All the progress will be deleted", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "Main Menu", style: .destructive) { (_) in
+            Vibration.error.vibrate()
+            self.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+        }
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: {
+        })
     }
     
+    //MARK: - setupButtons
     func setupButtons(){
         playButton = UIButton(type: .custom)
         playButton.setTitle("Make a Bet", for: .normal)
@@ -119,6 +143,7 @@ class ViewController: UIViewController {
         playButton.addTarget(self, action: #selector(showBetMenu), for: .touchUpInside)
     }
     
+    //MARK: - setupCards
     func setupCards(){
         firstCard = UIImageView()
         firstCard.contentMode = .scaleToFill
@@ -132,7 +157,6 @@ class ViewController: UIViewController {
         thirdCard.contentMode = .scaleToFill
         thirdCard.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(thirdCard)
-        // Constraints for the height and width
         let safeArea = view.safeAreaLayoutGuide
         firstCard.image = UIImage(named: "cardDown")
         secondCard.image = UIImage(named: "cardDown")
@@ -140,7 +164,12 @@ class ViewController: UIViewController {
         firstCard.isUserInteractionEnabled = true
         secondCard.isUserInteractionEnabled = true
         thirdCard.isUserInteractionEnabled = true
-        // Activate all constraints
+        
+        if GameManager.shared.gameType == .oneCard {
+            firstCard.isHidden = true
+            thirdCard.isHidden = true
+        }
+        
         NSLayoutConstraint.activate([
             firstCard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
             firstCard.widthAnchor.constraint(equalTo: firstCard.heightAnchor, multiplier: 0.7),
@@ -156,13 +185,52 @@ class ViewController: UIViewController {
             thirdCard.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: firstCard.frame.height*1.5)
         ])}
     
+    //MARK: - openCards
     func openCards(){
-        card1 = GameManager.shared.getRandomCard()
-        let image = UIImage(named: card1.imageName())
-        firstCard.image = image
-        UIView.transition(with: firstCard, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: { _ in
-            sleep(1)
-            if GameManager.shared.cardsToOpen  == 3 {
+        switch GameManager.shared.gameType {
+        case .oneCard:
+            self.card2 = GameManager.shared.getRandomCard()
+            let image = UIImage(named: self.card2.imageName())
+            self.secondCard.image = image
+            UIView.transition(with: self.secondCard, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: {_ in
+                sleep(1)
+                let res  = Bet.shared.checkWin(card1: self.card2)
+                self.checkWinOrLose()
+                if res < 0 {
+                    let alertController = UIAlertController(title: "You lose \(abs(res)) coins", message: "Don't worry, try again!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                        self.checkWinOrLose()
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: {
+                    })
+                    Vibration.error.vibrate()
+                } else if res == 0 {
+                    let alertController = UIAlertController(title: "You earn nothing", message: "Let's try again!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    Vibration.heavy.vibrate()
+                } else if res > 0 {
+                    let alertController = UIAlertController(title: "You earn \(res) coins!", message: "That's it, move on", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                        self.checkWinOrLose()
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: {
+                        
+                    })
+                    Vibration.success.vibrate()
+                }
+            })
+            break
+        case .threeCards:
+            card1 = GameManager.shared.getRandomCard()
+            let image = UIImage(named: card1.imageName())
+            firstCard.image = image
+            UIView.transition(with: firstCard, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: { _ in
+                sleep(1)
                 self.card2 = GameManager.shared.getRandomCard()
                 let image = UIImage(named: self.card2.imageName())
                 self.secondCard.image = image
@@ -204,39 +272,16 @@ class ViewController: UIViewController {
                         }
                     })
                 })
-            } else {
-                let res  = Bet.shared.checkWin(card1: self.card1)
-                self.checkWinOrLose()
-                if res < 0 {
-                    let alertController = UIAlertController(title: "You lose \(abs(res)) coins", message: "Don't worry, try again!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-                        self.checkWinOrLose()
-                    }
-                    alertController.addAction(okAction)
-                    self.present(alertController, animated: true, completion: {
-                    })
-                    Vibration.error.vibrate()
-                } else if res == 0 {
-                    let alertController = UIAlertController(title: "You earn nothing", message: "Let's try again!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-                    }
-                    alertController.addAction(okAction)
-                    self.present(alertController, animated: true, completion: nil)
-                    Vibration.heavy.vibrate()
-                } else if res > 0 {
-                    let alertController = UIAlertController(title: "You earn \(res) coins!", message: "That's it, move on", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-                        self.checkWinOrLose()
-                    }
-                    alertController.addAction(okAction)
-                    self.present(alertController, animated: true, completion: {
-                    })
-                    Vibration.success.vibrate()
-                }
-            }
-        })
+            })
+            
+            break
+        case .none:
+            print("Error game type: Nil")
+            break
+        }
     }
     
+    //MARK: - checkWinOrLose
     func checkWinOrLose() {
         print(GameManager.shared.points)
         if GameManager.shared.points <=  0 {
@@ -258,7 +303,7 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    //MARK: - objc removeButton1
     @objc func removeButton1() {
         switch logo {
         case .heart:
@@ -275,6 +320,7 @@ class ViewController: UIViewController {
         Vibration.medium.vibrate()
     }
     
+    //MARK: - objc removeButton2
     @objc func removeButton2() {
         switch number {
         case .one:
@@ -291,6 +337,7 @@ class ViewController: UIViewController {
         Vibration.medium.vibrate()
     }
     
+    //MARK: - objc removeButton3
     @objc func removeButton3() {
         switch color {
         case .pink:
@@ -307,9 +354,8 @@ class ViewController: UIViewController {
         Vibration.medium.vibrate()
     }
     
+    //MARK: - setupBoard
     func setupBoard() {
-        
-        //MARK: - LOGO
         skullIV = UIImageView()
         skullIV.contentMode  = .scaleToFill
         skullIV.translatesAutoresizingMaskIntoConstraints = false
@@ -331,7 +377,6 @@ class ViewController: UIViewController {
         heartIV.layer.zPosition = 2
         view.addSubview(heartIV)
         
-        //MARK: - COUNT
         oneIV = UIImageView()
         oneIV.contentMode  = .scaleToFill
         oneIV.translatesAutoresizingMaskIntoConstraints = false
@@ -353,7 +398,6 @@ class ViewController: UIViewController {
         threeIV.layer.zPosition = 2
         view.addSubview(threeIV)
         
-        //MARK: - COLOR
         blueIV = UIImageView()
         blueIV.contentMode  = .scaleToFill
         blueIV.translatesAutoresizingMaskIntoConstraints = false
@@ -473,6 +517,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
+    //MARK: - touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if view.isUserInteractionEnabled {
             if let touch = touches.first {
@@ -495,6 +540,7 @@ extension ViewController {
         }
     }
     
+    //MARK: - touchesMoved
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if view.isUserInteractionEnabled {
             if let touch = touches.first {
@@ -510,6 +556,7 @@ extension ViewController {
         }
     }
     
+    //MARK: - touchesEnded
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if view.isUserInteractionEnabled {
             touchPoint = nil
@@ -576,16 +623,20 @@ extension ViewController {
     
 }
 extension ViewController {
+    
+    //MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         enableTouchHandling(true)
     }
     
+    //MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         enableTouchHandling(false)
     }
     
+    //MARK: - enableTouchHanding
     func enableTouchHandling(_ enabled: Bool) {
         if enabled {
             view.isUserInteractionEnabled = true

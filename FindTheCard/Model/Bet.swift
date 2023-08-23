@@ -36,8 +36,8 @@ class Bet {
         print("CARD2 : \(card2?.imageName())")
         print("CARD3 : \(card3?.imageName())")
         var res = -(logoBet + numberBet + colorBet)
-        switch GameManager.shared.cardsToOpen {
-        case 3:
+        switch GameManager.shared.gameType {
+        case .threeCards:
             if logo != nil {
                 var count = 0
                 if logo == card1!.logo {
@@ -95,7 +95,7 @@ class Bet {
                 print("num res: \(res)")
                 GameManager.shared.points +=  colorBet
             }
-        case 1:
+        case .oneCard:
             if logo != nil {
                 if logo == card1!.logo {
                     logoBet *= 2

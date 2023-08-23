@@ -45,6 +45,10 @@ class FloatingMenuVC: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     func setupChosen(){
         self.logo = delegate.logo
         self.color = delegate.color
