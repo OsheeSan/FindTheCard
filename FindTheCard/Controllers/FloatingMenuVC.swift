@@ -153,6 +153,19 @@ class FloatingMenuVC: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
+        
+        let hookView = UIView()
+        hookView.backgroundColor = .label
+        hookView.translatesAutoresizingMaskIntoConstraints = false
+        hookView.clipsToBounds = true
+        hookView.layer.cornerRadius = 3
+        view.addSubview(hookView)
+        NSLayoutConstraint.activate([
+            hookView.topAnchor.constraint(equalTo: view.topAnchor, constant: 7),
+            hookView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
+            hookView.heightAnchor.constraint(equalToConstant: 6),
+            hookView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     func setupCoinsLabel(){
@@ -169,7 +182,6 @@ class FloatingMenuVC: UIViewController {
         ])
     }
     
-    // Inside the setupBetViews function
     func setupBetViews() {
         View1 = BetView()
         View1.translatesAutoresizingMaskIntoConstraints = false

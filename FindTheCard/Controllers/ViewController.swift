@@ -566,46 +566,55 @@ extension ViewController {
                     switch viewToMove {
                     case birdIV:
                         first.image = birdIV.image
+                        UIView.transition(with: self.first, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         skullIV.isHidden = false
                         heartIV.isHidden = false
                         logo = .bird
                     case skullIV:
                         first.image = skullIV.image
+                        UIView.transition(with: self.first, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         birdIV.isHidden = false
                         heartIV.isHidden = false
                         logo = .skull
                     case heartIV:
                         first.image = heartIV.image
+                        UIView.transition(with: self.first, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         skullIV.isHidden = false
                         birdIV.isHidden = false
                         logo = .heart
                     case oneIV:
                         second.image = oneIV.image
+                        UIView.transition(with: self.second, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         twoIV.isHidden = false
                         threeIV.isHidden = false
                         number = .one
                     case twoIV:
                         second.image = twoIV.image
+                        UIView.transition(with: self.second, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         oneIV.isHidden = false
                         threeIV.isHidden = false
                         number = .two
                     case threeIV:
                         second.image = threeIV.image
+                        UIView.transition(with: self.second, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         oneIV.isHidden = false
                         twoIV.isHidden = false
                         number = .three
                     case blueIV:
                         third.image = blueIV.image
+                        UIView.transition(with: self.third, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         pinkIV.isHidden = false
                         yellowIV.isHidden = false
                         color = .blue
                     case yellowIV:
                         third.image = yellowIV.image
+                        UIView.transition(with: self.third, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         blueIV.isHidden = false
                         pinkIV.isHidden = false
                         color = .yellow
                     case pinkIV:
                         third.image = pinkIV.image
+                        UIView.transition(with: self.third, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
                         blueIV.isHidden = false
                         yellowIV.isHidden = false
                         color = .pink
