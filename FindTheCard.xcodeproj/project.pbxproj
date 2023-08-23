@@ -22,6 +22,8 @@
 		849A5A172A94B09200E64D85 /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A5A162A94B09200E64D85 /* Bet.swift */; };
 		849A5A192A94BF9300E64D85 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A5A182A94BF9300E64D85 /* MenuViewController.swift */; };
 		849A5A1B2A94D68F00E64D85 /* BetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A5A1A2A94D68F00E64D85 /* BetView.swift */; };
+		849A5A1D2A95033100E64D85 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A5A1C2A95033100E64D85 /* InstructionViewController.swift */; };
+		849A5A242A95078C00E64D85 /* instruction.txt in Resources */ = {isa = PBXBuildFile; fileRef = 849A5A232A95078C00E64D85 /* instruction.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		849A5A162A94B09200E64D85 /* Bet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
 		849A5A182A94BF9300E64D85 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		849A5A1A2A94D68F00E64D85 /* BetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetView.swift; sourceTree = "<group>"; };
+		849A5A1C2A95033100E64D85 /* InstructionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
+		849A5A232A95078C00E64D85 /* instruction.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = instruction.txt; sourceTree = "<group>"; };
 		9CB8AAC4C832C2FFF030F8A1 /* Pods-FindTheCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindTheCard.release.xcconfig"; path = "Target Support Files/Pods-FindTheCard/Pods-FindTheCard.release.xcconfig"; sourceTree = "<group>"; };
 		A531745B08C07CADAB3B0E8A /* Pods_FindTheCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindTheCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24CDB532C0604C222D5CEB6 /* Pods-FindTheCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindTheCard.debug.xcconfig"; path = "Target Support Files/Pods-FindTheCard/Pods-FindTheCard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,23 +100,65 @@
 		849A59F72A911CCF00E64D85 /* FindTheCard */ = {
 			isa = PBXGroup;
 			children = (
-				849A59F82A911CCF00E64D85 /* AppDelegate.swift */,
-				849A59FA2A911CCF00E64D85 /* SceneDelegate.swift */,
-				849A59FC2A911CCF00E64D85 /* ViewController.swift */,
-				849A59FE2A911CCF00E64D85 /* Main.storyboard */,
-				849A5A012A911CD100E64D85 /* Assets.xcassets */,
-				849A5A032A911CD100E64D85 /* LaunchScreen.storyboard */,
 				849A5A062A911CD100E64D85 /* Info.plist */,
-				849A5A0C2A9134C700E64D85 /* GameManager.swift */,
-				849A5A0E2A9134F700E64D85 /* CardEnums.swift */,
-				849A5A102A91356600E64D85 /* Card.swift */,
-				849A5A122A93AD6E00E64D85 /* FloatingMenuVC.swift */,
-				849A5A142A93BE2000E64D85 /* Vibration.swift */,
-				849A5A162A94B09200E64D85 /* Bet.swift */,
-				849A5A182A94BF9300E64D85 /* MenuViewController.swift */,
-				849A5A1A2A94D68F00E64D85 /* BetView.swift */,
+				849A5A222A9504F600E64D85 /* Managers */,
+				849A5A212A9504C000E64D85 /* Resouces */,
+				849A5A202A9504B100E64D85 /* Model */,
+				849A5A1F2A95049200E64D85 /* Views */,
+				849A5A1E2A95047F00E64D85 /* Controllers */,
 			);
 			path = FindTheCard;
+			sourceTree = "<group>";
+		};
+		849A5A1E2A95047F00E64D85 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				849A59FC2A911CCF00E64D85 /* ViewController.swift */,
+				849A5A122A93AD6E00E64D85 /* FloatingMenuVC.swift */,
+				849A5A182A94BF9300E64D85 /* MenuViewController.swift */,
+				849A5A1C2A95033100E64D85 /* InstructionViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		849A5A1F2A95049200E64D85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				849A5A1A2A94D68F00E64D85 /* BetView.swift */,
+				849A5A032A911CD100E64D85 /* LaunchScreen.storyboard */,
+				849A59FE2A911CCF00E64D85 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		849A5A202A9504B100E64D85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				849A5A0E2A9134F700E64D85 /* CardEnums.swift */,
+				849A5A162A94B09200E64D85 /* Bet.swift */,
+				849A5A102A91356600E64D85 /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		849A5A212A9504C000E64D85 /* Resouces */ = {
+			isa = PBXGroup;
+			children = (
+				849A5A232A95078C00E64D85 /* instruction.txt */,
+				849A5A142A93BE2000E64D85 /* Vibration.swift */,
+				849A59FA2A911CCF00E64D85 /* SceneDelegate.swift */,
+				849A59F82A911CCF00E64D85 /* AppDelegate.swift */,
+				849A5A012A911CD100E64D85 /* Assets.xcassets */,
+			);
+			path = Resouces;
+			sourceTree = "<group>";
+		};
+		849A5A222A9504F600E64D85 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				849A5A0C2A9134C700E64D85 /* GameManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +224,7 @@
 				849A5A052A911CD100E64D85 /* LaunchScreen.storyboard in Resources */,
 				849A5A022A911CD100E64D85 /* Assets.xcassets in Resources */,
 				849A5A002A911CCF00E64D85 /* Main.storyboard in Resources */,
+				849A5A242A95078C00E64D85 /* instruction.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +280,7 @@
 				849A5A152A93BE2000E64D85 /* Vibration.swift in Sources */,
 				849A5A192A94BF9300E64D85 /* MenuViewController.swift in Sources */,
 				849A59FD2A911CCF00E64D85 /* ViewController.swift in Sources */,
+				849A5A1D2A95033100E64D85 /* InstructionViewController.swift in Sources */,
 				849A5A1B2A94D68F00E64D85 /* BetView.swift in Sources */,
 				849A5A112A91356600E64D85 /* Card.swift in Sources */,
 				849A5A0D2A9134C700E64D85 /* GameManager.swift in Sources */,

@@ -1,0 +1,21 @@
+
+Two game modes:
+One card game and three card game
+
+
+
+One card game
+We have 1 deck of cards and 9 signs. We don't know what the next card is, so we have to guess it!
+You have to drag the traits onto the trait board. You can choose only one feature from each category.
+To place a bet, click the "Place a bet" button.
+Choose the required number of coins for each bet. The total number of coins can be seen above. Click "Play"!
+The card is opened. If one of the signs is true, the coins placed on this sign are doubled, otherwise the coins are taken away.
+After that, we place bets until we lose all the coins or reach 100!
+
+Three Card Game
+We have 3 decks of cards and 9 signs. We don't know what the next card is, so we have to guess it!
+You need to drag the signs to the sign board. You can only choose one trait from each category.
+To place a bet, click the "Place a bet" button.
+Choose the required number of coins for each bet. The total number of coins can be seen above. Click "Play"!
+3 cards are revealed. If. A certain sign appears on the cards once - we get our money back, if it appears 2 times - we double our winnings, if it appears 3 times - we triple them. And so on for each of the selected signs
+After that, we place bets until we lose all our coins or reach 100!

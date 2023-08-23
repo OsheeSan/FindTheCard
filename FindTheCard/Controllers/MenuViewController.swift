@@ -43,7 +43,7 @@ class MenuViewController: UIViewController {
         instruction.clipsToBounds = true
         instruction.layer.cornerRadius = 20
         instruction.backgroundColor = .orange
-//        instruction.addTarget(self, action: #selector(game3), for: .touchUpInside)
+        instruction.addTarget(self, action: #selector(instruction1), for: .touchUpInside)
         view.addSubview(instruction)
         
         NSLayoutConstraint.activate([
@@ -67,6 +67,12 @@ class MenuViewController: UIViewController {
     @objc func game3() {
         Vibration.light.vibrate()
         self.performSegue(withIdentifier: "game3", sender: game3Button)
+    }
+    
+    @objc func instruction1() {
+        Vibration.light.vibrate()
+        let vc = InstructionViewController()
+        self.present(vc, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
